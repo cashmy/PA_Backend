@@ -16,6 +16,8 @@ namespace PA_Backend.Data
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Treatment> TreatmentClass { get; set; }
         public DbSet<PlaceOfService> PlacesOfServices { get; set; }
+        public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<Carrier> Carriers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -59,6 +61,59 @@ namespace PA_Backend.Data
                     new Treatment { TreatmentCode = "OT", TreatmentName = "Occupational Therapy" },
                     new Treatment { TreatmentCode = "ST", TreatmentName = "Speech Therapy" },
                     new Treatment { TreatmentCode = "PT", TreatmentName = "Physical Therapy" }
+                    );
+            modelBuilder.Entity<Clinic>()
+                .HasData(
+                    new Clinic {
+                        ClinicId = 1,
+                        ClinicName = "The Playroom, Inc", 
+                        ClinicAddress1 = "123 Any Street",
+                        ClinicAddress2 = "",
+                        ClinicCity = "Mt Pleasant",
+                        ClinicState = "WI",
+                        ClinicZip = "53406",
+                        ClinicPhone = "(262) 555-1212",
+                        ClinicNPI = 1144664293,
+                        ClinicIsAGroup = true
+                    },
+                    new Clinic
+                    {
+                        ClinicId = 2,
+                        ClinicName = "Xaris, Inc",
+                        ClinicAddress1 = "123 Any Street",
+                        ClinicAddress2 = "",
+                        ClinicCity = "Mt Pleasant",
+                        ClinicState = "WI",
+                        ClinicZip = "53406",
+                        ClinicPhone = "(262) 555-1212",
+                        ClinicNPI = 1891048211,
+                        ClinicIsAGroup = false
+                    }
+                    );
+            modelBuilder.Entity<Carrier>()
+                .HasData(
+                    new Carrier
+                    {
+                        CarrierId = 1,
+                        CarrierName = "Forward Health",
+                        CarrierShortName = "EDS",
+                        CarrierContactName = "Jane Doe",
+                        CarrierContactEmail = "",
+                        CarrierContactPhone = "(800) 555-1212",
+                        CarrierProviderPhone = "(800) 555-1212",
+                        CarrierNotes = ""
+                    },
+                    new Carrier
+                    {
+                        CarrierId = 2,
+                        CarrierName = "United Health Care",
+                        CarrierShortName = "UHC",
+                        CarrierContactName = "",
+                        CarrierContactEmail = "",
+                        CarrierContactPhone = "",
+                        CarrierProviderPhone = "",
+                        CarrierNotes = ""
+                    }
                     );
         }
     }
