@@ -48,15 +48,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d779f9c6-5b99-48a0-9927-891507dca2a2",
-                            ConcurrencyStamp = "76c275ac-78b1-4fac-b119-493e153b3ef5",
+                            Id = "1799bb34-b494-497f-9926-663c21ab47cf",
+                            ConcurrencyStamp = "ca67c264-752f-408f-b579-3139f9928923",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0e8bf0ee-c1bd-4d5a-a576-2eeb07d6b119",
-                            ConcurrencyStamp = "5ac9a529-d963-4968-9fe0-a7bfcb3af5d4",
+                            Id = "999266ce-a61b-4650-b0ed-ccaa178faeca",
+                            ConcurrencyStamp = "24297beb-04b2-4f6f-a56e-b495638db32d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -186,13 +186,18 @@ namespace PA_Backend.Migrations
                         },
                         new
                         {
-                            CPTCodeId = 92179,
+                            CPTCodeId = 97129,
                             CPTDescription = "Therapeutic interventions that focus on cognitive function (e.g., attention, memory, reasoning, executive function, problem-solving and/or pragmatic functioning) and compensatory strategies to manage the performance of an activity (e.g., managing time or schedules, initiating, organizing and sequencing tasks), direct (one-on-one) patient contact; initial 15 minutes"
                         },
                         new
                         {
                             CPTCodeId = 97130,
                             CPTDescription = "Each additional 15 minutes. Code 97130 is an add-on code. It will need to be billed in addition to 97129 whenever more than one 15-minute unit is performed. Code 97129 will only ever be billed once per visit. Code 91730 will never be billed alone."
+                        },
+                        new
+                        {
+                            CPTCodeId = 97110,
+                            CPTDescription = "Therapeutic exercises to develop strength, endurance, range of motion and flexibility."
                         });
                 });
 
@@ -207,6 +212,41 @@ namespace PA_Backend.Migrations
                     b.HasKey("DiagCode");
 
                     b.ToTable("DiagnosisCodes");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PlaceOfService", b =>
+                {
+                    b.Property<string>("PlaceOfServiceCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PlaceOfServiceDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PlaceOfServiceCode");
+
+                    b.ToTable("PlacesOfServices");
+
+                    b.HasData(
+                        new
+                        {
+                            PlaceOfServiceCode = "02",
+                            PlaceOfServiceDesc = "Telehealth"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "03",
+                            PlaceOfServiceDesc = "School"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "11",
+                            PlaceOfServiceDesc = "Office"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "12",
+                            PlaceOfServiceDesc = "Home"
+                        });
                 });
 
             modelBuilder.Entity("PA_Backend.Models.Status", b =>
@@ -237,7 +277,7 @@ namespace PA_Backend.Migrations
                         {
                             StatusId = 1,
                             DisplayOnSummary = false,
-                            StatusColor = "Blue",
+                            StatusColor = "Green",
                             StatusName = "Approved"
                         },
                         new
@@ -253,6 +293,36 @@ namespace PA_Backend.Migrations
                             DisplayOnSummary = true,
                             StatusColor = "DarkRed",
                             StatusName = "Expired"
+                        });
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.Treatment", b =>
+                {
+                    b.Property<string>("TreatmentCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TreatmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TreatmentCode");
+
+                    b.ToTable("TreatmentClass");
+
+                    b.HasData(
+                        new
+                        {
+                            TreatmentCode = "OT",
+                            TreatmentName = "Occupational Therapy"
+                        },
+                        new
+                        {
+                            TreatmentCode = "ST",
+                            TreatmentName = "Speech Therapy"
+                        },
+                        new
+                        {
+                            TreatmentCode = "PT",
+                            TreatmentName = "Physical Therapy"
                         });
                 });
 

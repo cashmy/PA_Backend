@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PA_Backend.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class TreatmentandPOS : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,6 +70,45 @@ namespace PA_Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DiagnosisCodes", x => x.DiagCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlacesOfServices",
+                columns: table => new
+                {
+                    PlaceOfServiceCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PlaceOfServiceDesc = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlacesOfServices", x => x.PlaceOfServiceCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Statuses",
+                columns: table => new
+                {
+                    StatusId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DisplayOnSummary = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Statuses", x => x.StatusId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TreatmentClass",
+                columns: table => new
+                {
+                    TreatmentCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TreatmentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TreatmentClass", x => x.TreatmentCode);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,8 +222,8 @@ namespace PA_Backend.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "ba2ba229-a833-4ee8-a43c-c18e0e470d75", "c9ea2bfa-48b6-46bb-adc8-c73e9d3480f6", "User", "USER" },
-                    { "7f593713-6229-431a-ac33-bcf5936a8489", "49a56882-626c-49c6-a7f5-7d089e0f6a37", "Admin", "ADMIN" }
+                    { "1799bb34-b494-497f-9926-663c21ab47cf", "ca67c264-752f-408f-b579-3139f9928923", "User", "USER" },
+                    { "999266ce-a61b-4650-b0ed-ccaa178faeca", "24297beb-04b2-4f6f-a56e-b495638db32d", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -193,8 +232,44 @@ namespace PA_Backend.Migrations
                 values: new object[,]
                 {
                     { 92507, "Treatment of speech, language, voice, communication, and/or auditory processing disorder." },
-                    { 92179, "Therapeutic interventions that focus on cognitive function (e.g., attention, memory, reasoning, executive function, problem-solving and/or pragmatic functioning) and compensatory strategies to manage the performance of an activity (e.g., managing time or schedules, initiating, organizing and sequencing tasks), direct (one-on-one) patient contact; initial 15 minutes" },
-                    { 97130, "Each additional 15 minutes. Code 97130 is an add-on code. It will need to be billed in addition to 97129 whenever more than one 15-minute unit is performed. Code 97129 will only ever be billed once per visit. Code 91730 will never be billed alone." }
+                    { 97129, "Therapeutic interventions that focus on cognitive function (e.g., attention, memory, reasoning, executive function, problem-solving and/or pragmatic functioning) and compensatory strategies to manage the performance of an activity (e.g., managing time or schedules, initiating, organizing and sequencing tasks), direct (one-on-one) patient contact; initial 15 minutes" },
+                    { 97130, "Each additional 15 minutes. Code 97130 is an add-on code. It will need to be billed in addition to 97129 whenever more than one 15-minute unit is performed. Code 97129 will only ever be billed once per visit. Code 91730 will never be billed alone." },
+                    { 97110, "Therapeutic exercises to develop strength, endurance, range of motion and flexibility." }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PlacesOfServices",
+                columns: new[] { "PlaceOfServiceCode", "PlaceOfServiceDesc" },
+                values: new object[,]
+                {
+                    { "02", "Telehealth" },
+                    { "03", "School" },
+                    { "11", "Office" },
+                    { "12", "Home" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Statuses",
+                columns: new[] { "StatusId", "StatusColor", "StatusName" },
+                values: new object[] { 1, "Green", "Approved" });
+
+            migrationBuilder.InsertData(
+                table: "Statuses",
+                columns: new[] { "StatusId", "DisplayOnSummary", "StatusColor", "StatusName" },
+                values: new object[,]
+                {
+                    { 2, true, "Red", "Working" },
+                    { 3, true, "DarkRed", "Expired" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TreatmentClass",
+                columns: new[] { "TreatmentCode", "TreatmentName" },
+                values: new object[,]
+                {
+                    { "OT", "Occupational Therapy" },
+                    { "ST", "Speech Therapy" },
+                    { "PT", "Physical Therapy" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -259,6 +334,15 @@ namespace PA_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "DiagnosisCodes");
+
+            migrationBuilder.DropTable(
+                name: "PlacesOfServices");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "TreatmentClass");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

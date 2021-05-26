@@ -10,8 +10,8 @@ using PA_Backend.Data;
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210526034653_initialmigration")]
-    partial class initialmigration
+    [Migration("20210526043821_TreatmentandPOS")]
+    partial class TreatmentandPOS
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba2ba229-a833-4ee8-a43c-c18e0e470d75",
-                            ConcurrencyStamp = "c9ea2bfa-48b6-46bb-adc8-c73e9d3480f6",
+                            Id = "1799bb34-b494-497f-9926-663c21ab47cf",
+                            ConcurrencyStamp = "ca67c264-752f-408f-b579-3139f9928923",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "7f593713-6229-431a-ac33-bcf5936a8489",
-                            ConcurrencyStamp = "49a56882-626c-49c6-a7f5-7d089e0f6a37",
+                            Id = "999266ce-a61b-4650-b0ed-ccaa178faeca",
+                            ConcurrencyStamp = "24297beb-04b2-4f6f-a56e-b495638db32d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -188,13 +188,18 @@ namespace PA_Backend.Migrations
                         },
                         new
                         {
-                            CPTCodeId = 92179,
+                            CPTCodeId = 97129,
                             CPTDescription = "Therapeutic interventions that focus on cognitive function (e.g., attention, memory, reasoning, executive function, problem-solving and/or pragmatic functioning) and compensatory strategies to manage the performance of an activity (e.g., managing time or schedules, initiating, organizing and sequencing tasks), direct (one-on-one) patient contact; initial 15 minutes"
                         },
                         new
                         {
                             CPTCodeId = 97130,
                             CPTDescription = "Each additional 15 minutes. Code 97130 is an add-on code. It will need to be billed in addition to 97129 whenever more than one 15-minute unit is performed. Code 97129 will only ever be billed once per visit. Code 91730 will never be billed alone."
+                        },
+                        new
+                        {
+                            CPTCodeId = 97110,
+                            CPTDescription = "Therapeutic exercises to develop strength, endurance, range of motion and flexibility."
                         });
                 });
 
@@ -209,6 +214,118 @@ namespace PA_Backend.Migrations
                     b.HasKey("DiagCode");
 
                     b.ToTable("DiagnosisCodes");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PlaceOfService", b =>
+                {
+                    b.Property<string>("PlaceOfServiceCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PlaceOfServiceDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PlaceOfServiceCode");
+
+                    b.ToTable("PlacesOfServices");
+
+                    b.HasData(
+                        new
+                        {
+                            PlaceOfServiceCode = "02",
+                            PlaceOfServiceDesc = "Telehealth"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "03",
+                            PlaceOfServiceDesc = "School"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "11",
+                            PlaceOfServiceDesc = "Office"
+                        },
+                        new
+                        {
+                            PlaceOfServiceCode = "12",
+                            PlaceOfServiceDesc = "Home"
+                        });
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("DisplayOnSummary")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("StatusColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StatusName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("Statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            StatusId = 1,
+                            DisplayOnSummary = false,
+                            StatusColor = "Green",
+                            StatusName = "Approved"
+                        },
+                        new
+                        {
+                            StatusId = 2,
+                            DisplayOnSummary = true,
+                            StatusColor = "Red",
+                            StatusName = "Working"
+                        },
+                        new
+                        {
+                            StatusId = 3,
+                            DisplayOnSummary = true,
+                            StatusColor = "DarkRed",
+                            StatusName = "Expired"
+                        });
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.Treatment", b =>
+                {
+                    b.Property<string>("TreatmentCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TreatmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TreatmentCode");
+
+                    b.ToTable("TreatmentClass");
+
+                    b.HasData(
+                        new
+                        {
+                            TreatmentCode = "OT",
+                            TreatmentName = "Occupational Therapy"
+                        },
+                        new
+                        {
+                            TreatmentCode = "ST",
+                            TreatmentName = "Speech Therapy"
+                        },
+                        new
+                        {
+                            TreatmentCode = "PT",
+                            TreatmentName = "Physical Therapy"
+                        });
                 });
 
             modelBuilder.Entity("PA_Backend.Models.User", b =>
