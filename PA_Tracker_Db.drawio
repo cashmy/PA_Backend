@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-05-26T14:38:35.965Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="4-gWcZrXaAeDzttst_j5" version="14.7.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-26T14:44:40.976Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" etag="AvrAmr8Ak6-fnHYqaN6z" version="14.7.1" type="github">
   <diagram id="R2lEEEUBdFMjLlhIrx00" name="Page-1">
-    <mxGraphModel dx="1315" dy="690" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
+    <mxGraphModel dx="1185" dy="667" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" math="0" shadow="0" extFonts="Permanent Marker^https://fonts.googleapis.com/css?family=Permanent+Marker">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -703,12 +703,12 @@
             <mxPoint x="855" y="618" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-322" value="Therapist&lt;br&gt;Role Only" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="P7OZJWQYa5IZQyr4ZLPv-321" vertex="1" connectable="0">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-322" value="Provider&lt;br&gt;Role Only" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="P7OZJWQYa5IZQyr4ZLPv-321" vertex="1" connectable="0">
           <mxGeometry x="0.118" y="1" relative="1" as="geometry">
             <mxPoint x="-1" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-65" value="Therapists" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-65" value="Providers" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="915" y="598" width="180" height="430" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-66" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=1;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -717,7 +717,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-67" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;fontStyle=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-66" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-68" value="TherapistId" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-66" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-68" value="ProviderId" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;fontStyle=5;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-66" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-69" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -726,7 +726,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-70" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-69" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-71" value="TherapistFirstName" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-69" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-71" value="ProviderFirstName" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-69" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-72" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -735,7 +735,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-73" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-72" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-74" value="TherapistLastName" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-72" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-74" value="ProviderLastName" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-72" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-75" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -744,7 +744,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-76" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-75" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-77" value="TherapistEmail" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-75" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-77" value="ProviderEmail" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-75" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-78" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -753,7 +753,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-79" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-78" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-80" value="TherapistRcvEmails" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-78" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-80" value="ProviderRcvEmails" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-78" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-81" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -762,7 +762,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-82" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-81" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-83" value="TherapistRcvNotification" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-81" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-83" value="ProviderRcvNotification" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-81" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-84" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -771,7 +771,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-85" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-84" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-86" value="TherapistNotes" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-84" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-86" value="ProviderNotes" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-84" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-142" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -780,7 +780,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-143" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-142" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-144" value="TherapistUserId (Opt)" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-142" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-144" value="ProviderUserId (Opt)" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-142" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-199" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -789,7 +789,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-200" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-199" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-201" value="TherapistNPI" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-199" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-201" value="ProviderNPI" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-199" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-202" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -798,7 +798,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-203" value="" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-202" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-204" value="TherapistTaxonomy" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-202" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-204" value="ProviderTaxonomy" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-202" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-326" value="" style="shape=partialRectangle;collapsible=0;dropTarget=0;pointerEvents=0;fillColor=none;top=0;left=0;bottom=0;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="P7OZJWQYa5IZQyr4ZLPv-65" vertex="1">
@@ -807,7 +807,7 @@
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-327" value="FK" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;editable=1;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-326" vertex="1">
           <mxGeometry width="30" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-328" value="TherapistAssignedStaff" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-326" vertex="1">
+        <mxCell id="P7OZJWQYa5IZQyr4ZLPv-328" value="ProviderAssignedStaff" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;" parent="P7OZJWQYa5IZQyr4ZLPv-326" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry" />
         </mxCell>
         <mxCell id="P7OZJWQYa5IZQyr4ZLPv-145" value="&lt;i&gt;Tracked Therapists&lt;br&gt;&amp;nbsp;may not necessarily&lt;br&gt;&amp;nbsp;have a signon&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;" parent="1" vertex="1">
