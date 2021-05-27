@@ -8,6 +8,7 @@ namespace PA_Backend.Models
         public string StatusName { get; set; }
         [Required]
         public string StatusColor { get; set; }
+        public string StatusTextColor { get; set; }
         [Required]
         public bool DisplayOnSummary { get; set; }
     }
