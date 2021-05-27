@@ -51,5 +51,7 @@ namespace PA_Backend.Models
         public DateTime? PAExpireDate { get; set; }
         public string PAAuthId { get; set; }
         public bool PAArchived { get; set; }
+        public bool PAExpireWarnNotification { get; set; }
+        public bool PAExpiredNotification { get; set; }
     }
 }
