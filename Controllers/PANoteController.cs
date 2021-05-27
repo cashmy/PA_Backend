@@ -37,8 +37,8 @@ namespace PA_Backend.Controllers
         }
         // ***** ADD A PANote *****
         // POST /api/panote
-        [HttpPost, Authorize]
-        public IActionResult Post([FromBody] PANote value)
+        [HttpPost("{paId}"), Authorize]
+        public IActionResult Post(int paId, [FromBody] PANote value)
         {
             _context.PANotes.Add(value);
             _context.SaveChanges();

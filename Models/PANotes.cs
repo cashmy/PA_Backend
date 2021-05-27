@@ -11,6 +11,7 @@ namespace PA_Backend.Models
         public PriorAuth PriorAuth { get; set; }
 
         [Key, Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PANoteId { get; set; }
                 
         [ForeignKey("NoteType")]
