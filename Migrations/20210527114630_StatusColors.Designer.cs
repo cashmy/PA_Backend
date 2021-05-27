@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PA_Backend.Data;
 
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210527114630_StatusColors")]
+    partial class StatusColors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9074eee1-53b0-4caa-a483-8e67e592aa77",
-                            ConcurrencyStamp = "097f0387-e348-4980-b2e4-b6081257c9b0",
+                            Id = "ba9de993-fa3e-49e6-b6ac-78e93ae73836",
+                            ConcurrencyStamp = "2655a82b-bd66-4fbb-8ff5-19f013acc4ee",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "d3fd8ef5-b043-4a3d-9f0f-46ba5b5cd084",
-                            ConcurrencyStamp = "874a0bcf-ae6e-4050-9b5a-f5d2b7b1cc92",
+                            Id = "f5f52e77-be35-4517-aede-22cf90041b74",
+                            ConcurrencyStamp = "c58e34ad-bfb6-4d97-a631-4f947e44508f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -671,9 +673,7 @@ namespace PA_Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StatusTextColor")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("#ffffff");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StatusId");
 
