@@ -5,15 +5,15 @@ namespace PA_Backend.Models
 {
     public class PANote
     {
-        [Key, Column(Order = 1)]
+        [Key]
         [ForeignKey("PriorAuth")]
         public int PARecordId { get; set; }
         public PriorAuth PriorAuth { get; set; }
 
-        [Key, Column(Order = 2)]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PANoteId { get; set; }
-                
+
         [ForeignKey("NoteType")]
         public int PANoteTypeId { get; set; }
         public NoteType NoteType { get; set; }

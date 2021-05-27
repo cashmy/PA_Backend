@@ -10,8 +10,8 @@ using PA_Backend.Data;
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210526212529_noteTypeMaster")]
-    partial class noteTypeMaster
+    [Migration("20210527135554_initialmigration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "28382bfb-a1fd-485d-a41b-639389342b13",
-                            ConcurrencyStamp = "00c6cb22-761c-4db3-8375-1571bbfb6ed5",
+                            Id = "a4916e18-0126-4107-afc0-1e9a05733bfb",
+                            ConcurrencyStamp = "0c9bc621-d3cc-4feb-9a6b-c4af6a48f93e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "3f0e6c83-067e-413a-8327-fb20187e517d",
-                            ConcurrencyStamp = "c5acfc6b-28a4-4be3-8336-038231a640b3",
+                            Id = "7db71b0b-ed91-49c0-9f76-44ccff40be4d",
+                            ConcurrencyStamp = "5d726dd7-cdc7-4982-bbe3-c466a48cf359",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -363,6 +363,65 @@ namespace PA_Backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PA_Backend.Models.PACPTCode", b =>
+                {
+                    b.Property<int>("PARecordId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PACPTId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PARecordId", "PACPTId");
+
+                    b.HasIndex("PACPTId");
+
+                    b.ToTable("PACPTCodes");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PADiagCode", b =>
+                {
+                    b.Property<int>("PARecordId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PADiagId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PARecordId", "PADiagId");
+
+                    b.HasIndex("PADiagId");
+
+                    b.ToTable("PADiagCodes");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PANote", b =>
+                {
+                    b.Property<int>("PARecordId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PANoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("PANoteText")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("PANoteTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PANoteUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PARecordId", "PANoteId");
+
+                    b.HasIndex("PANoteTypeId");
+
+                    b.HasIndex("PANoteUserId");
+
+                    b.ToTable("PANotes");
+                });
+
             modelBuilder.Entity("PA_Backend.Models.Patient", b =>
                 {
                     b.Property<int>("PatientId")
@@ -389,6 +448,11 @@ namespace PA_Backend.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
+                    b.Property<bool>("PatientInactive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("PatientLastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -409,6 +473,7 @@ namespace PA_Backend.Migrations
                             PatientFirstName = "Johnny",
                             PatientHaveIEP = true,
                             PatientInABA = true,
+                            PatientInactive = false,
                             PatientLastName = "Quest",
                             PatientNotes = "An adventerous boy!"
                         });
@@ -449,12 +514,99 @@ namespace PA_Backend.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PA_Backend.Models.PriorAuth", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("PAArchived")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("PAAssignedStaff")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PAAuthId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PACarrierId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PAClinicId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PAExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("PALastEvalDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("PALastPOCDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PAPatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PAProviderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PARequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PARqstNmbrVisits")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PAServiceCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("PAStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PAStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PATreatmentCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PAVisitFrequency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffMemberId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PACarrierId");
+
+                    b.HasIndex("PAClinicId");
+
+                    b.HasIndex("PAPatientId");
+
+                    b.HasIndex("PAProviderId");
+
+                    b.HasIndex("PAServiceCode");
+
+                    b.HasIndex("PAStatus");
+
+                    b.HasIndex("PATreatmentCode");
+
+                    b.HasIndex("StaffMemberId");
+
+                    b.ToTable("PriorAuths");
+                });
+
             modelBuilder.Entity("PA_Backend.Models.Provider", b =>
                 {
                     b.Property<int>("ProviderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AssignedStaffUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderEmail")
                         .HasColumnType("nvarchar(max)");
@@ -481,11 +633,11 @@ namespace PA_Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProviderUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProviderId");
 
-                    b.HasIndex("ProviderUserId");
+                    b.HasIndex("AssignedStaffUserId");
 
                     b.ToTable("Providers");
 
@@ -521,6 +673,11 @@ namespace PA_Backend.Migrations
 
                     b.Property<string>("StatusName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StatusTextColor")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("#ffffff");
 
                     b.HasKey("StatusId");
 
@@ -702,11 +859,133 @@ namespace PA_Backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PA_Backend.Models.PACPTCode", b =>
+                {
+                    b.HasOne("PA_Backend.Models.CPTCode", "CPTCode")
+                        .WithMany()
+                        .HasForeignKey("PACPTId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.PriorAuth", "PriorAuth")
+                        .WithMany()
+                        .HasForeignKey("PARecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CPTCode");
+
+                    b.Navigation("PriorAuth");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PADiagCode", b =>
+                {
+                    b.HasOne("PA_Backend.Models.DiagnosisCode", "DiagnosisCode")
+                        .WithMany()
+                        .HasForeignKey("PADiagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.PriorAuth", "PriorAuth")
+                        .WithMany()
+                        .HasForeignKey("PARecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DiagnosisCode");
+
+                    b.Navigation("PriorAuth");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PANote", b =>
+                {
+                    b.HasOne("PA_Backend.Models.NoteType", "NoteType")
+                        .WithMany()
+                        .HasForeignKey("PANoteTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("PANoteUserId");
+
+                    b.HasOne("PA_Backend.Models.PriorAuth", "PriorAuth")
+                        .WithMany()
+                        .HasForeignKey("PARecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NoteType");
+
+                    b.Navigation("PriorAuth");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PA_Backend.Models.PriorAuth", b =>
+                {
+                    b.HasOne("PA_Backend.Models.Carrier", "Carrier")
+                        .WithMany()
+                        .HasForeignKey("PACarrierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.Clinic", "Clinic")
+                        .WithMany()
+                        .HasForeignKey("PAClinicId");
+
+                    b.HasOne("PA_Backend.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PAPatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.Provider", "Provider")
+                        .WithMany()
+                        .HasForeignKey("PAProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.PlaceOfService", "PlaceOfService")
+                        .WithMany()
+                        .HasForeignKey("PAServiceCode");
+
+                    b.HasOne("PA_Backend.Models.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("PAStatus")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PA_Backend.Models.Treatment", "Treatment")
+                        .WithMany()
+                        .HasForeignKey("PATreatmentCode");
+
+                    b.HasOne("PA_Backend.Models.User", "StaffMember")
+                        .WithMany()
+                        .HasForeignKey("StaffMemberId");
+
+                    b.Navigation("Carrier");
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("PlaceOfService");
+
+                    b.Navigation("Provider");
+
+                    b.Navigation("StaffMember");
+
+                    b.Navigation("Status");
+
+                    b.Navigation("Treatment");
+                });
+
             modelBuilder.Entity("PA_Backend.Models.Provider", b =>
                 {
                     b.HasOne("PA_Backend.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("ProviderUserId");
+                        .HasForeignKey("AssignedStaffUserId");
 
                     b.Navigation("User");
                 });

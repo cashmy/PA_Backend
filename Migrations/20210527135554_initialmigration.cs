@@ -113,6 +113,39 @@ namespace PA_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NoteTypes",
+                columns: table => new
+                {
+                    NoteTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NoteTypeName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NoteTypes", x => x.NoteTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Patients",
+                columns: table => new
+                {
+                    PatientId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatientFirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PatientHaveIEP = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    PatientInABA = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    PatientClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientNotes = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    PatientInactive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patients", x => x.PatientId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlacesOfServices",
                 columns: table => new
                 {
@@ -132,6 +165,7 @@ namespace PA_Backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StatusName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StatusColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StatusTextColor = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "#ffffff"),
                     DisplayOnSummary = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -257,13 +291,200 @@ namespace PA_Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Providers",
+                columns: table => new
+                {
+                    ProviderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProviderUserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderFirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderLastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderRcvEmails = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    ProviderNPI = table.Column<long>(type: "bigint", nullable: false),
+                    ProviderTaxonomy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AssignedStaffUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProviderNotes = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Providers", x => x.ProviderId);
+                    table.ForeignKey(
+                        name: "FK_Providers_AspNetUsers_AssignedStaffUserId",
+                        column: x => x.AssignedStaffUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PriorAuths",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PAPatientId = table.Column<int>(type: "int", nullable: false),
+                    PACarrierId = table.Column<int>(type: "int", nullable: false),
+                    PAStatus = table.Column<int>(type: "int", nullable: false),
+                    PATreatmentCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PAServiceCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PAProviderId = table.Column<int>(type: "int", nullable: false),
+                    PAAssignedStaff = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StaffMemberId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PAClinicId = table.Column<int>(type: "int", nullable: true),
+                    PARequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PALastEvalDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PALastPOCDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PAVisitFrequency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PARqstNmbrVisits = table.Column<int>(type: "int", nullable: false),
+                    PAStartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PAExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PAAuthId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PAArchived = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PriorAuths", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_AspNetUsers_StaffMemberId",
+                        column: x => x.StaffMemberId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_Carriers_PACarrierId",
+                        column: x => x.PACarrierId,
+                        principalTable: "Carriers",
+                        principalColumn: "CarrierId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_Clinics_PAClinicId",
+                        column: x => x.PAClinicId,
+                        principalTable: "Clinics",
+                        principalColumn: "ClinicId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_Patients_PAPatientId",
+                        column: x => x.PAPatientId,
+                        principalTable: "Patients",
+                        principalColumn: "PatientId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_PlacesOfServices_PAServiceCode",
+                        column: x => x.PAServiceCode,
+                        principalTable: "PlacesOfServices",
+                        principalColumn: "PlaceOfServiceCode",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_Providers_PAProviderId",
+                        column: x => x.PAProviderId,
+                        principalTable: "Providers",
+                        principalColumn: "ProviderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_Statuses_PAStatus",
+                        column: x => x.PAStatus,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PriorAuths_TreatmentClass_PATreatmentCode",
+                        column: x => x.PATreatmentCode,
+                        principalTable: "TreatmentClass",
+                        principalColumn: "TreatmentCode",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PACPTCodes",
+                columns: table => new
+                {
+                    PARecordId = table.Column<int>(type: "int", nullable: false),
+                    PACPTId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PACPTCodes", x => new { x.PARecordId, x.PACPTId });
+                    table.ForeignKey(
+                        name: "FK_PACPTCodes_CPTCodes_PACPTId",
+                        column: x => x.PACPTId,
+                        principalTable: "CPTCodes",
+                        principalColumn: "CPTCodeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PACPTCodes_PriorAuths_PARecordId",
+                        column: x => x.PARecordId,
+                        principalTable: "PriorAuths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PADiagCodes",
+                columns: table => new
+                {
+                    PARecordId = table.Column<int>(type: "int", nullable: false),
+                    PADiagId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PADiagCodes", x => new { x.PARecordId, x.PADiagId });
+                    table.ForeignKey(
+                        name: "FK_PADiagCodes_DiagnosisCodes_PADiagId",
+                        column: x => x.PADiagId,
+                        principalTable: "DiagnosisCodes",
+                        principalColumn: "DiagCode",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PADiagCodes_PriorAuths_PARecordId",
+                        column: x => x.PARecordId,
+                        principalTable: "PriorAuths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PANotes",
+                columns: table => new
+                {
+                    PARecordId = table.Column<int>(type: "int", nullable: false),
+                    PANoteId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PANoteTypeId = table.Column<int>(type: "int", nullable: false),
+                    PANoteText = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    PANoteUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PANotes", x => new { x.PARecordId, x.PANoteId });
+                    table.ForeignKey(
+                        name: "FK_PANotes_AspNetUsers_PANoteUserId",
+                        column: x => x.PANoteUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PANotes_NoteTypes_PANoteTypeId",
+                        column: x => x.PANoteTypeId,
+                        principalTable: "NoteTypes",
+                        principalColumn: "NoteTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PANotes_PriorAuths_PARecordId",
+                        column: x => x.PARecordId,
+                        principalTable: "PriorAuths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "af7fb03c-1c52-4b16-b047-1fb6d9149507", "3402b933-aefb-4c3e-8a2e-e69d88453d29", "User", "USER" },
-                    { "66bf5cef-1330-44e0-be94-eed7b40e41e2", "fef659ba-8b6c-4eb1-a0d6-69d02f44c05a", "Admin", "ADMIN" }
+                    { "a4916e18-0126-4107-afc0-1e9a05733bfb", "0c9bc621-d3cc-4feb-9a6b-c4af6a48f93e", "User", "USER" },
+                    { "7db71b0b-ed91-49c0-9f76-44ccff40be4d", "5d726dd7-cdc7-4982-bbe3-c466a48cf359", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -291,9 +512,19 @@ namespace PA_Backend.Migrations
                 columns: new[] { "ClinicId", "ClinicAddress1", "ClinicAddress2", "ClinicCity", "ClinicIsAGroup", "ClinicNPI", "ClinicName", "ClinicPhone", "ClinicState", "ClinicZip" },
                 values: new object[,]
                 {
-                    { 2, "123 Any Street", "", "Mt Pleasant", false, 1891048211L, "Xaris, Inc", "(262) 555-1212", "WI", "53406" },
-                    { 1, "123 Any Street", "", "Mt Pleasant", true, 1144664293L, "The Playroom, Inc", "(262) 555-1212", "WI", "53406" }
+                    { 1, "123 Any Street", "", "Mt Pleasant", true, 1144664293L, "The Playroom, Inc", "(262) 555-1212", "WI", "53406" },
+                    { 2, "123 Any Street", "", "Mt Pleasant", false, 1891048211L, "Xaris, Inc", "(262) 555-1212", "WI", "53406" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "NoteTypes",
+                columns: new[] { "NoteTypeId", "NoteTypeName" },
+                values: new object[] { 1, "General" });
+
+            migrationBuilder.InsertData(
+                table: "Patients",
+                columns: new[] { "PatientId", "PatientClass", "PatientDOB", "PatientFirstName", "PatientHaveIEP", "PatientInABA", "PatientLastName", "PatientNotes" },
+                values: new object[] { 1, "CO", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(1943), "Johnny", true, true, "Quest", "An adventerous boy!" });
 
             migrationBuilder.InsertData(
                 table: "PlacesOfServices",
@@ -305,6 +536,11 @@ namespace PA_Backend.Migrations
                     { "11", "Office" },
                     { "12", "Home" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Providers",
+                columns: new[] { "ProviderId", "AssignedStaffUserId", "ProviderEmail", "ProviderFirstName", "ProviderLastName", "ProviderNPI", "ProviderNotes", "ProviderRcvEmails", "ProviderTaxonomy", "ProviderUserId" },
+                values: new object[] { 1, null, "julie@prtherapy123.com", "Julie", "Fitzgerald", 1234567890L, "", true, "", null });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
@@ -325,8 +561,8 @@ namespace PA_Backend.Migrations
                 columns: new[] { "TreatmentCode", "TreatmentName" },
                 values: new object[,]
                 {
-                    { "ST", "Speech Therapy" },
                     { "OT", "Occupational Therapy" },
+                    { "ST", "Speech Therapy" },
                     { "PT", "Physical Therapy" }
                 });
 
@@ -368,6 +604,71 @@ namespace PA_Backend.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PACPTCodes_PACPTId",
+                table: "PACPTCodes",
+                column: "PACPTId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PADiagCodes_PADiagId",
+                table: "PADiagCodes",
+                column: "PADiagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PANotes_PANoteTypeId",
+                table: "PANotes",
+                column: "PANoteTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PANotes_PANoteUserId",
+                table: "PANotes",
+                column: "PANoteUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PACarrierId",
+                table: "PriorAuths",
+                column: "PACarrierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PAClinicId",
+                table: "PriorAuths",
+                column: "PAClinicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PAPatientId",
+                table: "PriorAuths",
+                column: "PAPatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PAProviderId",
+                table: "PriorAuths",
+                column: "PAProviderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PAServiceCode",
+                table: "PriorAuths",
+                column: "PAServiceCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PAStatus",
+                table: "PriorAuths",
+                column: "PAStatus");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_PATreatmentCode",
+                table: "PriorAuths",
+                column: "PATreatmentCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PriorAuths_StaffMemberId",
+                table: "PriorAuths",
+                column: "StaffMemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Providers_AssignedStaffUserId",
+                table: "Providers",
+                column: "AssignedStaffUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -388,10 +689,16 @@ namespace PA_Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Carriers");
+                name: "PACPTCodes");
 
             migrationBuilder.DropTable(
-                name: "Clinics");
+                name: "PADiagCodes");
+
+            migrationBuilder.DropTable(
+                name: "PANotes");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "CPTCodes");
@@ -400,16 +707,31 @@ namespace PA_Backend.Migrations
                 name: "DiagnosisCodes");
 
             migrationBuilder.DropTable(
+                name: "NoteTypes");
+
+            migrationBuilder.DropTable(
+                name: "PriorAuths");
+
+            migrationBuilder.DropTable(
+                name: "Carriers");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
+
+            migrationBuilder.DropTable(
+                name: "Patients");
+
+            migrationBuilder.DropTable(
                 name: "PlacesOfServices");
+
+            migrationBuilder.DropTable(
+                name: "Providers");
 
             migrationBuilder.DropTable(
                 name: "Statuses");
 
             migrationBuilder.DropTable(
                 name: "TreatmentClass");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

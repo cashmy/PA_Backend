@@ -48,15 +48,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3d5cb6b-e30e-41a1-b782-6fabad610e3d",
-                            ConcurrencyStamp = "e3b21899-7705-4ddc-a33a-a00f68bbe428",
+                            Id = "a4916e18-0126-4107-afc0-1e9a05733bfb",
+                            ConcurrencyStamp = "0c9bc621-d3cc-4feb-9a6b-c4af6a48f93e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "efe6b44b-514f-4bfe-b6f4-88e4637612c7",
-                            ConcurrencyStamp = "3a1ab8b3-7aee-4148-b70e-62856cffe75d",
+                            Id = "7db71b0b-ed91-49c0-9f76-44ccff40be4d",
+                            ConcurrencyStamp = "5d726dd7-cdc7-4982-bbe3-c466a48cf359",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
