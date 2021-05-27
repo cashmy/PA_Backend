@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PA_Backend.Data;
 
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210527160830_addMessagesTable2")]
+    partial class addMessagesTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "68cee6fb-b0eb-4d9a-87b3-801fd3844712",
-                            ConcurrencyStamp = "38ea5a85-a91d-4bdb-bcd3-3562f47d616e",
+                            Id = "d535eaec-4c04-4f26-b933-18d8ded895c1",
+                            ConcurrencyStamp = "863c2684-dbde-48c6-a147-7e7a1faf2232",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "71d52835-490f-4d78-8016-0b9b1cbc444e",
-                            ConcurrencyStamp = "84e2bc0e-3691-411e-aada-3447eb1904fd",
+                            Id = "b32c0500-d186-421d-9d90-f7770e802662",
+                            ConcurrencyStamp = "b681ebe6-9fb6-44df-aa28-d85d9d0b20da",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -339,7 +341,7 @@ namespace PA_Backend.Migrations
                     b.ToTable("DiagnosisCodes");
                 });
 
-            modelBuilder.Entity("PA_Backend.Models.Message", b =>
+            modelBuilder.Entity("PA_Backend.Models.Messages", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -886,7 +888,7 @@ namespace PA_Backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PA_Backend.Models.Message", b =>
+            modelBuilder.Entity("PA_Backend.Models.Messages", b =>
                 {
                     b.HasOne("PA_Backend.Models.User", "User")
                         .WithMany()

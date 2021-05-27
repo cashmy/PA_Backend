@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PA_Backend.Data;
 
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210527160530_addMessagesTable")]
+    partial class addMessagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "68cee6fb-b0eb-4d9a-87b3-801fd3844712",
-                            ConcurrencyStamp = "38ea5a85-a91d-4bdb-bcd3-3562f47d616e",
+                            Id = "f4709ff4-17f0-47d7-9016-ed7d120a5a61",
+                            ConcurrencyStamp = "04e922a2-9a34-4750-b015-96dc8cc5dbde",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "71d52835-490f-4d78-8016-0b9b1cbc444e",
-                            ConcurrencyStamp = "84e2bc0e-3691-411e-aada-3447eb1904fd",
+                            Id = "d07160a6-4ee4-4b94-a8f5-291f09f1dd86",
+                            ConcurrencyStamp = "cdb22390-6713-4f41-85d6-93b54e4d0844",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -337,25 +339,6 @@ namespace PA_Backend.Migrations
                     b.HasKey("DiagCode");
 
                     b.ToTable("DiagnosisCodes");
-                });
-
-            modelBuilder.Entity("PA_Backend.Models.Message", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("MessageId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MessageText")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("UserId", "MessageId");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("PA_Backend.Models.NoteType", b =>
@@ -884,17 +867,6 @@ namespace PA_Backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PA_Backend.Models.Message", b =>
-                {
-                    b.HasOne("PA_Backend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PA_Backend.Models.PACPTCode", b =>

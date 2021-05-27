@@ -19,6 +19,7 @@ namespace PA_Backend.Data
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<CPTCode> CPTCodes { get; set; }
         public DbSet<DiagnosisCode> DiagnosisCodes { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<NoteType> NoteTypes { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<PlaceOfService> PlacesOfServices { get; set; }
@@ -105,6 +106,7 @@ namespace PA_Backend.Data
                 new CPTCode { CPTCodeId = 97110, CPTDescription = "Therapeutic exercises to develop strength, endurance, range of motion and flexibility." }
             );
             modelBuilder.Entity<DiagnosisCode>();
+            modelBuilder.Entity<Message>().HasKey(ms => new { ms.UserId, ms.MessageId });
             modelBuilder.Entity<NoteType>().HasData(new { NoteTypeId = 1, NoteTypeName = "General"});
             modelBuilder.Entity<Patient>()
                 .Property(p => p.PatientHaveIEP)
@@ -139,7 +141,13 @@ namespace PA_Backend.Data
                     );
             modelBuilder.Entity<PriorAuth>()
                 .Property(p => p.PAArchived)
-                .HasDefaultValue(false); 
+                .HasDefaultValue(false);
+            modelBuilder.Entity<PriorAuth>()
+                .Property(p => p.PAExpireWarnNotification)
+                .HasDefaultValue(false);
+            modelBuilder.Entity<PriorAuth>()
+                .Property(p => p.PAExpiredNotification)
+                .HasDefaultValue(false);
             modelBuilder.Entity<PACPTCode>().HasKey(pc => new { pc.PARecordId, pc.PACPTId });
             modelBuilder.Entity<PADiagCode>().HasKey(pd => new { pd.PARecordId, pd.PADiagId });
             modelBuilder.Entity<PANote>().HasKey(pn => new { pn.PARecordId, pn.PANoteId });
