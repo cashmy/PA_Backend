@@ -3,6 +3,7 @@ using PA_Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace PA_Backend.Controllers
 {
@@ -50,7 +51,6 @@ namespace PA_Backend.Controllers
             return Ok(priorAuth);
         }
         
-        // ** TODO - Finish this Endpoint 
 
         // *** GET A PriorAuth by ID will all INCLUDES
         // <baseurl>/api/priorAuth/joins/
@@ -59,6 +59,13 @@ namespace PA_Backend.Controllers
         {
             var priorAuth = _context.PriorAuths
                 .Where(p => p.Id == id)
+                .Include(p => p.Patient)
+                .Include(p => p.Carrier)
+                .Include(p => p.Status)
+                .Include(p => p.Treatment)
+                .Include(p => p.PlaceOfService)
+                .Include(p => p.Provider)
+                .Include(p => p.StaffMember)
                 .SingleOrDefault();
             
             return Ok(priorAuth);

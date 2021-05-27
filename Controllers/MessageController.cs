@@ -22,13 +22,14 @@ namespace PA_Backend.Controllers
         public IActionResult Get()
         {
             var userId = User.FindFirstValue("id");
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Where(u => u.Id == userId);
+
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var messages = _context.Messages.Where(m => m.UserId == user.Id).ToList();
+            var messages = _context.Messages.Where(m => m.UserId == userId).ToList();
             if (messages == null)
             {
                 return NotFound("Messages not found");
@@ -42,45 +43,45 @@ namespace PA_Backend.Controllers
         public IActionResult GetById(int id)
         {
             var userId = User.FindFirstValue("id");
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Where(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var message = _context.Messages.Where(m => m.UserId == user.Id && m.MessageId == id).SingleOrDefault();
+            var message = _context.Messages.Where(m => m.UserId == userId && m.MessageId == id).SingleOrDefault();
             return Ok(message);
         }
         // ***** ADD A Message *****
         // POST /api/message
-        [HttpPost("{paId}"), Authorize]
+        [HttpPost, Authorize]
         public IActionResult Post([FromBody] Message value)
         {
             var userId = User.FindFirstValue("id");
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Where(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound("User not found");
             }
-            value.UserId = user.Id;
+            value.UserId = userId;
             _context.Messages.Add(value);
             _context.SaveChanges();
             return StatusCode(201, value);
         }
 
-        // ***** UPDATE A PANote *****
-        // PUT /api/panote
+        // ***** UPDATE A Message *****
+        // PUT /api/message
         [HttpPut("{id}"), Authorize]
         public IActionResult Put(int id, [FromBody] Message value)
         {
             var userId = User.FindFirstValue("id");
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Where(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var message = _context.Messages.Where(m => m.UserId == user.Id && m.MessageId == id).SingleOrDefault();
+            var message = _context.Messages.Where(m => m.UserId == userId && m.MessageId == id).SingleOrDefault();
             if (message == null)
             {
                 return NotFound("Requested record not found.");
@@ -94,19 +95,19 @@ namespace PA_Backend.Controllers
         }
 
 
-        // ***** DELETE A PANote *****
-        // DELETE /api/panote
+        // ***** DELETE A Message *****
+        // DELETE /api/message
         [HttpDelete("{id}"), Authorize]
         public IActionResult Delete(int paId, int id)
         {
             var userId = User.FindFirstValue("id");
-            var user = _context.Users.Find(userId);
+            var user = _context.Users.Where(u => u.Id == userId);
             if (user == null)
             {
                 return NotFound("User not found");
             }
 
-            var message = _context.Messages.Where(m => m.UserId == user.Id && m.MessageId == id).SingleOrDefault();
+            var message = _context.Messages.Where(m => m.UserId == userId && m.MessageId == id).SingleOrDefault();
             if (message == null)
             {
                 return NotFound("Requested record not found.");
