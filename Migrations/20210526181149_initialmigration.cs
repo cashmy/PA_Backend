@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PA_Backend.Migrations
 {
-    public partial class TreatmentandPOS : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,46 @@ namespace PA_Backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carriers",
+                columns: table => new
+                {
+                    CarrierId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarrierName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierShortName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierContactPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierProviderPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CarrierNotes = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carriers", x => x.CarrierId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clinics",
+                columns: table => new
+                {
+                    ClinicId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClinicName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicAddress1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicAddress2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicCity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicState = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicZip = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClinicNPI = table.Column<long>(type: "bigint", nullable: false),
+                    ClinicIsAGroup = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clinics", x => x.ClinicId);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,8 +262,8 @@ namespace PA_Backend.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "1799bb34-b494-497f-9926-663c21ab47cf", "ca67c264-752f-408f-b579-3139f9928923", "User", "USER" },
-                    { "999266ce-a61b-4650-b0ed-ccaa178faeca", "24297beb-04b2-4f6f-a56e-b495638db32d", "Admin", "ADMIN" }
+                    { "af7fb03c-1c52-4b16-b047-1fb6d9149507", "3402b933-aefb-4c3e-8a2e-e69d88453d29", "User", "USER" },
+                    { "66bf5cef-1330-44e0-be94-eed7b40e41e2", "fef659ba-8b6c-4eb1-a0d6-69d02f44c05a", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -235,6 +275,24 @@ namespace PA_Backend.Migrations
                     { 97129, "Therapeutic interventions that focus on cognitive function (e.g., attention, memory, reasoning, executive function, problem-solving and/or pragmatic functioning) and compensatory strategies to manage the performance of an activity (e.g., managing time or schedules, initiating, organizing and sequencing tasks), direct (one-on-one) patient contact; initial 15 minutes" },
                     { 97130, "Each additional 15 minutes. Code 97130 is an add-on code. It will need to be billed in addition to 97129 whenever more than one 15-minute unit is performed. Code 97129 will only ever be billed once per visit. Code 91730 will never be billed alone." },
                     { 97110, "Therapeutic exercises to develop strength, endurance, range of motion and flexibility." }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Carriers",
+                columns: new[] { "CarrierId", "CarrierContactEmail", "CarrierContactName", "CarrierContactPhone", "CarrierName", "CarrierNotes", "CarrierProviderPhone", "CarrierShortName" },
+                values: new object[,]
+                {
+                    { 1, "", "Jane Doe", "(800) 555-1212", "Forward Health", "", "(800) 555-1212", "EDS" },
+                    { 2, "", "", "", "United Health Care", "", "", "UHC" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Clinics",
+                columns: new[] { "ClinicId", "ClinicAddress1", "ClinicAddress2", "ClinicCity", "ClinicIsAGroup", "ClinicNPI", "ClinicName", "ClinicPhone", "ClinicState", "ClinicZip" },
+                values: new object[,]
+                {
+                    { 2, "123 Any Street", "", "Mt Pleasant", false, 1891048211L, "Xaris, Inc", "(262) 555-1212", "WI", "53406" },
+                    { 1, "123 Any Street", "", "Mt Pleasant", true, 1144664293L, "The Playroom, Inc", "(262) 555-1212", "WI", "53406" }
                 });
 
             migrationBuilder.InsertData(
@@ -267,8 +325,8 @@ namespace PA_Backend.Migrations
                 columns: new[] { "TreatmentCode", "TreatmentName" },
                 values: new object[,]
                 {
-                    { "OT", "Occupational Therapy" },
                     { "ST", "Speech Therapy" },
+                    { "OT", "Occupational Therapy" },
                     { "PT", "Physical Therapy" }
                 });
 
@@ -328,6 +386,12 @@ namespace PA_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Carriers");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
 
             migrationBuilder.DropTable(
                 name: "CPTCodes");

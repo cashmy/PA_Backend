@@ -10,8 +10,8 @@ using PA_Backend.Data;
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210526143302_addCarrierMaster")]
-    partial class addCarrierMaster
+    [Migration("20210526181149_initialmigration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "14981c32-bcf7-451b-b804-a3b433e4ebd1",
-                            ConcurrencyStamp = "40f65a51-0a72-41ff-a62c-8c001d718d81",
+                            Id = "af7fb03c-1c52-4b16-b047-1fb6d9149507",
+                            ConcurrencyStamp = "3402b933-aefb-4c3e-8a2e-e69d88453d29",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "cdbf2826-938f-42c3-a45b-9a5853cc4da8",
-                            ConcurrencyStamp = "92d5205d-8c63-44c2-8c9d-83d57ad7275f",
+                            Id = "66bf5cef-1330-44e0-be94-eed7b40e41e2",
+                            ConcurrencyStamp = "fef659ba-8b6c-4eb1-a0d6-69d02f44c05a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
