@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace PA_Backend.Controllers
 {
@@ -41,6 +42,88 @@ namespace PA_Backend.Controllers
             }
             return Ok(priorAuths);
         }
+
+        // ***********  PRIOR AUTH VIEWS **********
+        // ***** GET ALL PriorAuths by Therapist and Archive Status *****
+        [HttpGet("provider/{Id}/{archiveSts}"), Authorize]
+        public IActionResult GetByProvider(int id, bool archiveSts)
+        {
+            var priorAuths = _context.PriorAuths.Where(pa => pa.PAProviderId == id && pa.PAArchived == archiveSts).ToList();
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+        // ***** GET ALL PriorAuths by Carrier and Archive Status *****
+        [HttpGet("carrier/{Id}/{archiveSts}"), Authorize]
+        public IActionResult GetByCarrier(int id, bool archiveSts)
+        {
+            var priorAuths = _context.PriorAuths.Where(pa => pa.PACarrierId == id && pa.PAArchived == archiveSts).ToList();
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+        // ***** GET ALL PriorAuths by AssignedStaff and Archive Status *****
+        [HttpGet("staff/{archiveSts}"), Authorize]
+        public IActionResult GetByStaffMember(bool archiveSts)
+        {
+            var userId = User.FindFirstValue("id");
+            var user = _context.Users.Find(userId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var priorAuths = _context.PriorAuths.Where(pa => pa.PAAssignedStaff == userId && pa.PAArchived == archiveSts).ToList();
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+        // ***** GET ALL PriorAuths for a Patient *****
+        [HttpGet("patient/{id}"), Authorize]
+        public IActionResult GetByCarrier(int id)
+        {
+            var priorAuths = _context.PriorAuths.Where(pa => pa.PAPatientId == id).ToList();
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+        // ***** GET ALL PriorAuths for a Status *****
+        [HttpGet("status/{id}"), Authorize]
+        public IActionResult GetByStatus(int id)
+        {
+            var priorAuths = _context.PriorAuths.Where(pa => pa.PAStatus == id).ToList();
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+        // ***** GET COUNT for a Given Status *****
+        [HttpGet("count/{id}"), Authorize]
+        public IActionResult GetCount(int id)
+        {
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAStatus == id)
+                .GroupBy(pa => pa.PAStatus)
+                .Select(pa => new { Count = pa.Count() });
+
+
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+
+        // **********
 
         // ***** GET A PriorAuth by ID *****
         // <baseurl>/api/priorAuth
