@@ -45,6 +45,7 @@ namespace PA_Backend.Controllers
 
         // ***********  PRIOR AUTH VIEWS **********
         // ***** GET ALL PriorAuths by Therapist and Archive Status *****
+        // <baseurl>/api/priorAuth/provider
         [HttpGet("provider/{Id}/{archiveSts}"), Authorize]
         public IActionResult GetByProvider(int id, bool archiveSts)
         {
@@ -56,6 +57,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
         // ***** GET ALL PriorAuths by Carrier and Archive Status *****
+        // <baseurl>/api/priorAuth/carrier
         [HttpGet("carrier/{Id}/{archiveSts}"), Authorize]
         public IActionResult GetByCarrier(int id, bool archiveSts)
         {
@@ -67,6 +69,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
         // ***** GET ALL PriorAuths by AssignedStaff and Archive Status *****
+        // <baseurl>/api/priorAuth/staff
         [HttpGet("staff/{archiveSts}"), Authorize]
         public IActionResult GetByStaffMember(bool archiveSts)
         {
@@ -85,6 +88,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
         // ***** GET ALL PriorAuths for a Patient *****
+        // <baseurl>/api/priorAuth/patient
         [HttpGet("patient/{id}"), Authorize]
         public IActionResult GetByCarrier(int id)
         {
@@ -96,6 +100,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
         // ***** GET ALL PriorAuths for a Status *****
+        // <baseurl>/api/priorAuth/status
         [HttpGet("status/{id}"), Authorize]
         public IActionResult GetByStatus(int id)
         {
@@ -107,6 +112,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
         // ***** GET COUNT for a Given Status *****
+        // <baseurl>/api/priorAuth/count
         [HttpGet("count/{id}"), Authorize]
         public IActionResult GetCount(int id)
         {
@@ -115,6 +121,22 @@ namespace PA_Backend.Controllers
                 .GroupBy(pa => pa.PAStatus)
                 .Select(pa => new { Count = pa.Count() });
 
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+
+        // ***** GET COUNT for a Given Clinic *****
+        // <baseurl>/api/priorAuth/count
+        [HttpGet("count/{id}"), Authorize]
+        public IActionResult GetCount(int id)
+        {
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAClinicId == id)
+                .GroupBy(pa => pa.PAClinicId)
+                .Select(pa => new { Count = pa.Count() });
 
             if (priorAuths == null)
             {
@@ -122,6 +144,7 @@ namespace PA_Backend.Controllers
             }
             return Ok(priorAuths);
         }
+
 
         // **********
 
