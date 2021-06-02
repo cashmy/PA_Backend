@@ -114,7 +114,7 @@ namespace PA_Backend.Controllers
         // ***** GET COUNT for a Given Status *****
         // <baseurl>/api/priorAuth/count
         [HttpGet("count/{id}"), Authorize]
-        public IActionResult GetCount(int id)
+        public IActionResult GetCountByStatus(int id)
         {
             var priorAuths = _context.PriorAuths
                 .Where(pa => pa.PAStatus == id)
@@ -131,7 +131,7 @@ namespace PA_Backend.Controllers
         // ***** GET COUNT for a Given Clinic *****
         // <baseurl>/api/priorAuth/count
         [HttpGet("count/{id}"), Authorize]
-        public IActionResult GetCount(int id)
+        public IActionResult GetCountByClinic(int id)
         {
             var priorAuths = _context.PriorAuths
                 .Where(pa => pa.PAClinicId == id)

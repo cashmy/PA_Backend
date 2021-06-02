@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PA_Backend.Data;
 
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210602170934_ProviderDbUpdates")]
+    partial class ProviderDbUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c598cfd7-86a2-41a5-bd31-74d237d9026e",
-                            ConcurrencyStamp = "bfdd0c32-2d40-45e9-826d-de8a04142848",
+                            Id = "9b326870-2201-4056-aa42-370654e64c7d",
+                            ConcurrencyStamp = "8652ba7d-ed7a-4b57-9740-d620af5e40b8",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "e641d920-4f1d-487c-94f1-6e0fbc565120",
-                            ConcurrencyStamp = "b20cabfb-cd9b-4a1c-9caa-f372f2d1746f",
+                            Id = "94c38549-e58e-418e-a8cd-a6a4dc2a1439",
+                            ConcurrencyStamp = "7af65c90-c43c-4050-bf11-60f4f784f0d0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -278,8 +280,8 @@ namespace PA_Backend.Migrations
                     b.Property<bool>("ClinicIsAGroup")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ClinicNPI")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("ClinicNPI")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ClinicName")
                         .HasColumnType("nvarchar(max)");
@@ -305,7 +307,7 @@ namespace PA_Backend.Migrations
                             ClinicAddress2 = "",
                             ClinicCity = "Mt Pleasant",
                             ClinicIsAGroup = true,
-                            ClinicNPI = "1144664293",
+                            ClinicNPI = 1144664293L,
                             ClinicName = "The Playroom, Inc",
                             ClinicPhone = "(262) 555-1212",
                             ClinicState = "WI",
@@ -318,7 +320,7 @@ namespace PA_Backend.Migrations
                             ClinicAddress2 = "",
                             ClinicCity = "Mt Pleasant",
                             ClinicIsAGroup = false,
-                            ClinicNPI = "1891048211",
+                            ClinicNPI = 1891048211L,
                             ClinicName = "Xaris, Inc",
                             ClinicPhone = "(262) 555-1212",
                             ClinicState = "WI",
@@ -649,8 +651,8 @@ namespace PA_Backend.Migrations
                     b.Property<string>("ProviderLastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProviderNPI")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("ProviderNPI")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("ProviderNotes")
                         .HasMaxLength(256)
@@ -689,7 +691,7 @@ namespace PA_Backend.Migrations
                             ProviderFirstName = "Julie",
                             ProviderInactive = false,
                             ProviderLastName = "Fitzgerald",
-                            ProviderNPI = "1234567890",
+                            ProviderNPI = 1234567890L,
                             ProviderNotes = "",
                             ProviderPhone = "",
                             ProviderRcvEmails = true,

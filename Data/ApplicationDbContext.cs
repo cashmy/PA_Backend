@@ -81,7 +81,7 @@ namespace PA_Backend.Data
                         ClinicState = "WI",
                         ClinicZip = "53406",
                         ClinicPhone = "(262) 555-1212",
-                        ClinicNPI = 1144664293,
+                        ClinicNPI = "1144664293",
                         ClinicIsAGroup = true
                     },
                     new Clinic
@@ -94,7 +94,7 @@ namespace PA_Backend.Data
                         ClinicState = "WI",
                         ClinicZip = "53406",
                         ClinicPhone = "(262) 555-1212",
-                        ClinicNPI = 1891048211,
+                        ClinicNPI = "1891048211",
                         ClinicIsAGroup = false
                     }
                     );
@@ -151,8 +151,16 @@ namespace PA_Backend.Data
             modelBuilder.Entity<PACPTCode>().HasKey(pc => new { pc.PARecordId, pc.PACPTId });
             modelBuilder.Entity<PADiagCode>().HasKey(pd => new { pd.PARecordId, pd.PADiagId });
             modelBuilder.Entity<PANote>().HasKey(pn => new { pn.PARecordId, pn.PANoteId });
+
+
             modelBuilder.Entity<Provider>()
                 .Property(p => p.ProviderRcvEmails)
+                .HasDefaultValue(false);
+            modelBuilder.Entity<Provider>()
+                .Property(p => p.ProviderRcvNotifications)
+                .HasDefaultValue(false);
+            modelBuilder.Entity<Provider>()
+                .Property(p => p.ProviderInactive)
                 .HasDefaultValue(false);
             modelBuilder.Entity<Provider>()
                 .HasData(
@@ -162,10 +170,13 @@ namespace PA_Backend.Data
                         ProviderLastName = "Fitzgerald",
                         ProviderEmail = "julie@prtherapy123.com",
                         ProviderRcvEmails = true,
-                        ProviderNPI = 1234567890,
+                        ProviderRcvNotifications = true,
+                        ProviderPhone = "",
+                        ProviderNPI = "1234567890",
                         ProviderTaxonomy = "",
-                        //ProviderAssignedStaffUserId = "",
-                        ProviderNotes = ""
+                        AssignedStaffUserId = null,
+                        ProviderNotes = "",
+                        ProviderInactive = false,
                     }
                 );
             modelBuilder.Entity<Status>()

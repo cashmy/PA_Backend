@@ -13,7 +13,7 @@ namespace PA_Backend.Models
         public string ClinicZip { get; set; }
         [DataType(DataType.PhoneNumber)]
         public string ClinicPhone { get; set; }
-        public long ClinicNPI { get; set; }
+        public string ClinicNPI { get; set; }
         public bool ClinicIsAGroup { get; set; }
 
     }

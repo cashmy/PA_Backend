@@ -21,8 +21,11 @@ namespace PA_Backend.Models
         
         // Default to user email unless "ProviderUserId is blank than this field should be required 
         public string ProviderEmail { get; set; }
+        public string ProviderPhone { get; set; }
         public bool ProviderRcvEmails { get; set; }
-        public long ProviderNPI { get; set; }
+        public bool ProviderRcvNotifications { get; set; }
+
+        public string ProviderNPI { get; set; }
         public string ProviderTaxonomy { get; set; }
 
         //Validated against the role of "staff"
@@ -32,5 +35,6 @@ namespace PA_Backend.Models
 
         [StringLength(256)]
         public string ProviderNotes { get; set; }
+        public bool ProviderInactive { get; set; }
     }
 }
