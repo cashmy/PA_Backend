@@ -40,6 +40,11 @@ namespace PA_Backend.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Provider value)
         {
+            if (value.AssignedStaffUserId == "")
+            {
+                value.AssignedStaffUserId = null;
+
+            }
             _context.Providers.Add(value);
             _context.SaveChanges();
             return StatusCode(201, value);
@@ -59,11 +64,14 @@ namespace PA_Backend.Controllers
             provider.ProviderLastName = value.ProviderLastName;
             provider.ProviderEmail = value.ProviderEmail;
             provider.ProviderUserId = value.ProviderUserId;
+            provider.ProviderPhone = value.ProviderPhone;
             provider.ProviderRcvEmails = value.ProviderRcvEmails;
+            provider.ProviderRcvNotifications = value.ProviderRcvNotifications;
             provider.ProviderNPI = value.ProviderNPI;
             provider.ProviderTaxonomy = value.ProviderTaxonomy;
             provider.ProviderNotes = value.ProviderNotes;
             provider.AssignedStaffUserId = value.AssignedStaffUserId;
+            provider.ProviderInactive = value.ProviderInactive;
 
             _context.Providers.Update(provider);
             _context.SaveChanges();
