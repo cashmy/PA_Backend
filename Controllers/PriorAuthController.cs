@@ -35,7 +35,13 @@ namespace PA_Backend.Controllers
         [HttpGet("archive/{archiveSts}"), Authorize]
         public IActionResult GetByArchiveSts(bool archiveSts)
         {
-            var priorAuths = _context.PriorAuths.Where(pa => pa.PAArchived == archiveSts).ToList();
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAArchived == archiveSts)
+                .Include(pa => pa.Patient)
+                .Include(pa => pa.Carrier)
+                .Include(pa => pa.Provider)
+                .Include(pa => pa.Status)
+                .ToList();
             if (priorAuths == null)
             {
                 return NotFound();
@@ -99,25 +105,30 @@ namespace PA_Backend.Controllers
             }
             return Ok(priorAuths);
         }
-        // ***** GET ALL PriorAuths for a Status *****
+        // ***** GET ALL PriorAuths for a Status and Archived Status *****
         // <baseurl>/api/priorAuth/status
-        [HttpGet("status/{id}"), Authorize]
-        public IActionResult GetByStatus(int id)
+        [HttpGet("status/{id}/archive/{archiveSts}"), Authorize]
+        public IActionResult GetByStatus(int id, bool archiveSts)
         {
-            var priorAuths = _context.PriorAuths.Where(pa => pa.PAStatus == id).ToList();
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAStatus == id && pa.PAArchived == archiveSts)
+                .Include(pa => pa.Patient)
+                .Include(pa => pa.Carrier)
+                .Include(pa => pa.Provider)
+                .ToList();
             if (priorAuths == null)
             {
                 return NotFound();
             }
             return Ok(priorAuths);
         }
-        // ***** GET COUNT for a Given Status *****
+        // ***** GET COUNT for a Given Status: Active Only *****
         // <baseurl>/api/priorAuth/count
         [HttpGet("count/{id}"), Authorize]
         public IActionResult GetCountByStatus(int id)
         {
             var priorAuths = _context.PriorAuths
-                .Where(pa => pa.PAStatus == id)
+                .Where(pa => pa.PAStatus == id && pa.PAArchived == false)
                 .GroupBy(pa => pa.PAStatus)
                 .Select(pa => new { Count = pa.Count() });
 
@@ -128,15 +139,110 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
 
-        // ***** GET COUNT for a Given Clinic *****
-        // <baseurl>/api/priorAuth/count
-        [HttpGet("count/{id}"), Authorize]
-        public IActionResult GetCountByClinic(int id)
+
+        // ***** GET NON-APPROVED COUNTs for All Providers: Active Only *****
+        // <baseurl>/api/priorAuth/provcount
+        [HttpGet("provcount"), Authorize]
+        public IActionResult GetNonApprvdCountForProviders()
+        {
+            var approved = 1;
+            // StatusId value of 1 == Approved 
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAArchived == false && pa.PAStatus != approved)
+                .Include(pa => pa.Status)
+                .GroupBy(pa => new { pa.PAProviderId })
+                .Select(pa => new {pa.Key.PAProviderId, Count = pa.Count() })
+                .Join(_context.Providers,
+                    a => a.PAProviderId,
+                    b => b.ProviderId,
+                    (a, b) => new { a.PAProviderId, b.ProviderFirstName, b.ProviderLastName, a.Count })
+                .ToList();
+
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+
+        // ***** GET COUNTs for All Providers: Active Only *****
+        // <baseurl>/api/priorAuth/provcount
+        [HttpGet("provallcounts"), Authorize]
+        public IActionResult GetCountsForProviders()
         {
             var priorAuths = _context.PriorAuths
-                .Where(pa => pa.PAClinicId == id)
-                .GroupBy(pa => pa.PAClinicId)
-                .Select(pa => new { Count = pa.Count() });
+                .Where(pa => pa.PAArchived == false)
+                .Include(pa => pa.Status)
+                .GroupBy(pa => new { pa.PAProviderId, pa.PAStatus } )
+                .OrderBy(pa => pa.Key.PAProviderId)
+                .ThenBy(pa => pa.Key.PAStatus )
+                .Select(pa => new {pa.Key.PAProviderId, pa.Key.PAStatus, Count = pa.Count() })
+                .Join(_context.Providers, 
+                    a => a.PAProviderId, 
+                    b => b.ProviderId, 
+                    (a, b) => new {a.PAProviderId, b.ProviderFirstName, b.ProviderLastName, a.PAStatus, a.Count})
+                .Join(_context.Statuses,
+                    a => a.PAStatus,
+                    b => b.StatusId,
+                    (a, b) => new { a.PAProviderId, a.ProviderFirstName, a.ProviderLastName, a.PAStatus, 
+                                    b.StatusName, b.DisplayOnSummary, b.StatusColor, b.StatusTextColor, a.Count, }
+                )
+                .ToList();
+
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+
+        // ***** GET NON-APPROVED COUNTs for All Carriers: Active Only *****
+        // <baseurl>/api/priorAuth/provcount
+        [HttpGet("carrcount"), Authorize]
+        public IActionResult GetNonApprvdCountForCarriers()
+        {
+            var approved = 1;
+            // StatusId value of 1 == Approved 
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAArchived == false && pa.PAStatus != approved)
+                .Include(pa => pa.Status)
+                .GroupBy(pa => new { pa.PACarrierId })
+                .Select(pa => new { pa.Key.PACarrierId, Count = pa.Count() })
+                .Join(_context.Carriers,
+                    a => a.PACarrierId,
+                    b => b.CarrierId,
+                    (a, b) => new { a.PACarrierId, b.CarrierName, b.CarrierShortName, a.Count })
+                .ToList();
+
+            if (priorAuths == null)
+            {
+                return NotFound();
+            }
+            return Ok(priorAuths);
+        }
+
+        // ***** GET COUNT for a Given Caarrier *****
+        // <baseurl>/api/priorAuth/count
+        [HttpGet("carrcount/{id}"), Authorize]
+        public IActionResult GetCountsByCarrier(int id)
+        {
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PACarrierId == id)
+                .OrderBy(pa => pa.Status )
+                .Include(pa => pa.Status )
+                .GroupBy(pa => new { pa.PACarrierId, pa.PAStatus })
+                .Select(pa => new {pa.Key.PACarrierId, pa.Key.PAStatus, Count = pa.Count() })
+                .Join(_context.Carriers,
+                    a => a.PACarrierId,
+                    b => b.CarrierId,
+                    (a, b) => new { a.PACarrierId, b.CarrierName, b.CarrierShortName, a.PAStatus, a.Count })
+                 .Join(_context.Statuses,
+                    a => a.PAStatus,
+                    b => b.StatusId,
+                    (a, b) => new { a.PACarrierId, a.CarrierName, a.CarrierShortName, a.PAStatus, 
+                                    b.StatusName, b.DisplayOnSummary, b.StatusColor, b.StatusTextColor, a.Count, }
+                )
+                .ToList();
 
             if (priorAuths == null)
             {
