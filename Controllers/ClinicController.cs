@@ -32,7 +32,7 @@ namespace PA_Backend.Controllers
         }
 
         // GET api/<ClinicController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public IActionResult GetById(int id)
         {
             var clinic = _context.Clinics.Where(p => p.ClinicId == id).SingleOrDefault();
@@ -40,7 +40,7 @@ namespace PA_Backend.Controllers
         }
 
         // POST api/<ClinicController>
-        [HttpPost]
+        [HttpPost, Authorize]
         public IActionResult Post([FromBody]Clinic value)
         {
             _context.Clinics.Add(value);
@@ -49,7 +49,7 @@ namespace PA_Backend.Controllers
         }
 
         // PUT api/<ClinicController>/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize]
         public IActionResult Put(int id, [FromBody]Clinic value)
         {
             var clinic = _context.Clinics.Where(c => c.ClinicId == id).SingleOrDefault();
@@ -73,7 +73,7 @@ namespace PA_Backend.Controllers
         }
 
         // DELETE api/<ClinicController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public IActionResult Delete(int id)
         {
             var clinic = _context.Clinics.Where(p => p.ClinicId == id).SingleOrDefault();
