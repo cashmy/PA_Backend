@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PA_Backend.Data;
 
 namespace PA_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210603130212_addCarrierFields")]
+    partial class addCarrierFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace PA_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "da268ff2-5b29-4766-b7c2-692401f224f5",
-                            ConcurrencyStamp = "74a21f47-3ec6-4f05-94ec-b0bce0753a7a",
+                            Id = "f5f77e84-86c2-400e-b8d5-805071cf3725",
+                            ConcurrencyStamp = "8e55e96b-3a1b-4c1f-9e55-cb92bc42c942",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "e37d8074-539b-4403-bd84-1a2c74cf45ec",
-                            ConcurrencyStamp = "acbb04a1-6f75-4463-bbe1-3552ef0ecca7",
+                            Id = "d53a284b-31ac-44ac-aaca-401d5c3d30c1",
+                            ConcurrencyStamp = "ed001ea3-0948-44c7-9ede-65718e94f1e1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -563,11 +565,6 @@ namespace PA_Backend.Migrations
 
                     b.Property<int>("PACarrierId")
                         .HasColumnType("int");
-
-                    b.Property<string>("PACarrierPosition")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("P");
 
                     b.Property<int?>("PAClinicId")
                         .HasColumnType("int");

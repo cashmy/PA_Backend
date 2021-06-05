@@ -15,8 +15,8 @@ namespace PA_Backend.Models
         public string CarrierProviderPhone { get; set; }
         [StringLength (256)]
         public string CarrierNotes { get; set; }
-        // Additional optional fields for future consideration
-        // public string CarrierClass { get; set; }  (MD = Medicaid, CO=Commercial, etc.)
-        // public bool CarrierPAsRequired { get; set; } 
+        public string CarrierClass { get; set; }
+        //(MD = Medicaid, CO=Commercial, etc.)
+        public bool CarrierPARequired { get; set; }
     }
 }

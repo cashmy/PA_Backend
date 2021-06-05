@@ -46,6 +46,9 @@ namespace PA_Backend.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new RolesConfiguration());
             modelBuilder.Entity<Carrier>()
+                .Property(c => c.CarrierPARequired)
+                .HasDefaultValue(true);
+            modelBuilder.Entity<Carrier>()
                 .HasData(
                     new Carrier
                     {
@@ -56,7 +59,9 @@ namespace PA_Backend.Data
                         CarrierContactEmail = "",
                         CarrierContactPhone = "(800) 555-1212",
                         CarrierProviderPhone = "(800) 555-1212",
-                        CarrierNotes = ""
+                        CarrierNotes = "",
+                        CarrierClass = "MD",
+                        CarrierPARequired = true
                     },
                     new Carrier
                     {
@@ -67,7 +72,9 @@ namespace PA_Backend.Data
                         CarrierContactEmail = "",
                         CarrierContactPhone = "",
                         CarrierProviderPhone = "",
-                        CarrierNotes = ""
+                        CarrierNotes = "",
+                        CarrierClass ="CO",
+                        CarrierPARequired = false
                     }
                     );
             modelBuilder.Entity<Clinic>()
@@ -139,6 +146,9 @@ namespace PA_Backend.Data
                     new PlaceOfService { PlaceOfServiceCode = "11", PlaceOfServiceDesc = "Office" },
                     new PlaceOfService { PlaceOfServiceCode = "12", PlaceOfServiceDesc = "Home" }
                     );
+            modelBuilder.Entity<PriorAuth>()
+                .Property(p => p.PACarrierPosition)
+                .HasDefaultValue("P"); // P=Primary, S=Secondary, T=Tertiary
             modelBuilder.Entity<PriorAuth>()
                 .Property(p => p.PAArchived)
                 .HasDefaultValue(false);

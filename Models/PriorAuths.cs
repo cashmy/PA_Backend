@@ -16,6 +16,8 @@ namespace PA_Backend.Models
         public int PACarrierId { get; set; }
         public Carrier Carrier { get; set; }
 
+        public string PACarrierPosition { get; set; }
+
         [ForeignKey("Status")]
         public int PAStatus { get; set; }
         public Status Status { get; set; }
