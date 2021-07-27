@@ -52,10 +52,15 @@ namespace PA_Backend.Controllers
         // ***********  PRIOR AUTH VIEWS **********
         // ***** GET ALL PriorAuths by Therapist and Archive Status *****
         // <baseurl>/api/priorAuth/provider
-        [HttpGet("provider/{Id}/{archiveSts}"), Authorize]
+        [HttpGet("provider/{id}/archive/{archiveSts}"), Authorize]
         public IActionResult GetByProvider(int id, bool archiveSts)
         {
-            var priorAuths = _context.PriorAuths.Where(pa => pa.PAProviderId == id && pa.PAArchived == archiveSts).ToList();
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PAProviderId == id && pa.PAArchived == archiveSts)
+                .Include(pa => pa.Patient)
+                .Include(pa => pa.Carrier)
+                .Include(pa => pa.Status)
+                .ToList();
             if (priorAuths == null)
             {
                 return NotFound();
@@ -64,10 +69,15 @@ namespace PA_Backend.Controllers
         }
         // ***** GET ALL PriorAuths by Carrier and Archive Status *****
         // <baseurl>/api/priorAuth/carrier
-        [HttpGet("carrier/{Id}/{archiveSts}"), Authorize]
+        [HttpGet("carrier/{id}/archive/{archiveSts}"), Authorize]
         public IActionResult GetByCarrier(int id, bool archiveSts)
         {
-            var priorAuths = _context.PriorAuths.Where(pa => pa.PACarrierId == id && pa.PAArchived == archiveSts).ToList();
+            var priorAuths = _context.PriorAuths
+                .Where(pa => pa.PACarrierId == id && pa.PAArchived == archiveSts)
+                .Include(pa => pa.Patient)
+                .Include(pa => pa.Provider)
+                .Include(pa => pa.Status)
+                .ToList();
             if (priorAuths == null)
             {
                 return NotFound();
@@ -105,6 +115,7 @@ namespace PA_Backend.Controllers
             }
             return Ok(priorAuths);
         }
+
         // ***** GET ALL PriorAuths for a Status and Archived Status *****
         // <baseurl>/api/priorAuth/status
         [HttpGet("status/{id}/archive/{archiveSts}"), Authorize]
@@ -122,6 +133,7 @@ namespace PA_Backend.Controllers
             }
             return Ok(priorAuths);
         }
+
         // ***** GET COUNT for a Given Status: Active Only *****
         // <baseurl>/api/priorAuth/count
         [HttpGet("count/{id}"), Authorize]
@@ -221,7 +233,7 @@ namespace PA_Backend.Controllers
             return Ok(priorAuths);
         }
 
-        // ***** GET COUNT for a Given Caarrier *****
+        // ***** GET COUNT for a Given Carrier *****
         // <baseurl>/api/priorAuth/count
         [HttpGet("carrcount/{id}"), Authorize]
         public IActionResult GetCountsByCarrier(int id)
