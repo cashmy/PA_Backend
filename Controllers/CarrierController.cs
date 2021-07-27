@@ -61,6 +61,7 @@ namespace PA_Backend.Controllers
             carrier.CarrierContactEmail = value.CarrierContactEmail;
             carrier.CarrierContactPhone = value.CarrierContactPhone;
             carrier.CarrierProviderPhone = value.CarrierProviderPhone;
+            carrier.CarrierClass = value.CarrierClass;
             carrier.CarrierNotes = value.CarrierNotes;
             
             _context.Carriers.Update(carrier);
